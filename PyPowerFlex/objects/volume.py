@@ -137,7 +137,7 @@ class Volume(base_client.EntityRequest):
 
         return self._create_entity(params)
 
-    def delete(self, volume_id, remove_mode, allow_ext_managed=None):
+    def delete(self, volume_id, remove_mode, allow_ext_managed=None, volumeClass='defaultclass'):
         """Remove PowerFlex volume.
 
         :param volume_id: str
@@ -148,7 +148,8 @@ class Volume(base_client.EntityRequest):
 
         params = {
             "removeMode": remove_mode,
-            "allowOnExtManagedVol": allow_ext_managed
+            "allowOnExtManagedVol": allow_ext_managed,
+            "volumeClass": volumeClass
         }
 
         return self._delete_entity(volume_id, params)
@@ -223,7 +224,8 @@ class Volume(base_client.EntityRequest):
                           sdc_guid=None,
                           all_sdcs=None,
                           skip_appliance_validation=None,
-                          allow_ext_managed=None):
+                          allow_ext_managed=None,
+                          volumeClass='defaultclass'):
         """Unmap PowerFlex volume from SDC.
 
         :param volume_id: str
@@ -249,7 +251,8 @@ class Volume(base_client.EntityRequest):
             "guid": sdc_guid,
             "allSdcs": all_sdcs,
             "skipApplianceValidation": skip_appliance_validation,
-            "allowOnExtManagedVol": allow_ext_managed
+            "allowOnExtManagedVol": allow_ext_managed,
+            "volumeClass": volumeClass
         }
 
         r, response = self.send_post_request(self.base_action_url,
